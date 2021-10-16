@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>List Customers</title>
+
+    <!-- reference our style sheet -->
+    <link type="text/css"
+          rel="stylesheet"
+          href="/css/style.css"/>
 </head>
 
 <body>
@@ -25,9 +30,9 @@
                         <th>Email</th>
                     </tr>
                     <tr th:each="customer : ${customerList}">
-                        <td><span th:text="${customer.getFirstName()}"></span></td>
-                        <td><span th:text="${customer.getLastName()}"></span></td>
-                        <td><span th:text="${customer.getEmail()}"></span></td>
+                        <td th:text="${customer.getFirstName()}"/>
+                        <td th:text="${customer.getLastName()}"/>
+                        <td th:text="${customer.getEmail()}"/>
                     </tr>
                 </tbody>
             </table>
