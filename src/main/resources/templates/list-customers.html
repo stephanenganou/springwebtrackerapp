@@ -1,13 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
     <title>List Customers</title>
+
+    <!-- reference our style sheet -->
+    <link type="text/css"
+          rel="stylesheet"
+          href="/css/style.css"/>
 </head>
 
 <body>
-<h1>List Customers - coming soon ... </h1>
+
+    <div id="wrapper">
+        <div id="header">
+            <h2>CRM - Customer Relationship Manager</h2>
+        </div>
+    </div>
+
+    <div id="container">
+        <div id="content">
+
+            <!-- put new button: Add Customer -->
+            <input type="button" value="Add Customer"
+                   onclick="window.location.href='showFormForAdd'; return false;"
+                   class="add-button"
+            />
+
+            <!-- add our html table here -->
+            <table>
+                <tbody>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                    </tr>
+                    <tr th:each="customer : ${customerList}">
+                        <td th:text="${customer.getFirstName()}"/>
+                        <td th:text="${customer.getLastName()}"/>
+                        <td th:text="${customer.getEmail()}"/>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </body>
 
 </html>
