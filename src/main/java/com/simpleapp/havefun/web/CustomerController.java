@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,9 +49,34 @@ public class CustomerController {
         return "customer-form";
     }
 
+    @GetMapping("/showFormForUpdate/{customerId}")
+    public String showFormForUpdateCustomer(@PathVariable(value = "customerId") int theCustomerId,
+                                            Model theCustomerModel) {
+
+        log.info("rendering info on customer with id: {}", theCustomerId);
+
+        // Get the customer from the database
+        Customer foundCustomer = customerService.getCustomerById(theCustomerId);
+
+        // set customer as a model attribute to pre-populate the form
+        theCustomerModel.addAttribute("customer", foundCustomer);
+
+        // send over to our form
+        return "customer-form";
+    }
+
+    @GetMapping("/delete/{customerId}")
+    public String deleteCustomer(@PathVariable(value = "customerId") int theCustomerId){
+        log.info("deleting the customer with id: {}", theCustomerId);
+
+        customerService.deleteCustomer(theCustomerId);
+
+        return "redirect:/customer/list";
+    }
+
     @PostMapping("/save")
     public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
-        log.info("saving a customer: {}", theCustomer);
+        log.info("saving the customer: {}", theCustomer);
 
         customerService.saveCustomer(theCustomer);
         return "redirect:/customer/list";

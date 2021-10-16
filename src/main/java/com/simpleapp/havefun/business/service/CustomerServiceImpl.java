@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public List<Customer> getCustomerList() {
 
-        return customerDAO.findAll(Sort.by("firstName"));
+        return customerDAO.findAll(Sort.by("lastName"));
     }
 
     /**
@@ -40,6 +40,28 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public void saveCustomer(Customer theCustomer) {
+
+        //Customer existingCustomer = getCustomerById(theCustomer.getId());
+        //if(null != existingCustomer){
+            //customerDAO.sa
+        //}
         customerDAO.save(theCustomer);
+    }
+
+    /**
+     * @see CustomerService#getCustomerById(int)
+     */
+    @Override
+    @Transactional
+    public Customer getCustomerById(int customerId) {
+
+        return customerDAO.getById(customerId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCustomer(int customerId) {
+
+        customerDAO.deleteById(customerId);
     }
 }

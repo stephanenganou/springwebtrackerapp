@@ -22,7 +22,16 @@ public interface CustomerService {
 
     /**
      * saves a Customer object into the Database.
-     * @param theCustomer
      */
     void saveCustomer(Customer theCustomer);
+
+    /**
+     * search and retrieve a customer by his Id.
+     */
+    Customer getCustomerById(int customerId);
+
+    /**
+     * method used to delete a specific customer using his Id.
+     */
+    void deleteCustomer(int customerId);
 }
