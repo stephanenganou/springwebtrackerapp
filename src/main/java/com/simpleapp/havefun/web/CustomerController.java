@@ -7,10 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ * @author Stephane Nganou Wafo
+ * Controller to handle anything related to customer
+ */
 @Controller
 @Slf4j
 @RequestMapping("/customer")
@@ -24,15 +30,32 @@ public class CustomerController {
     }
 
     @GetMapping("/list")
-    public String listCustomers(Model theModel) {
+    public String listCustomers(Model customerModel) {
         log.info("rendering customer list");
 
         // get customers from DAO
         List<Customer> theCustomers = customerService.getCustomerList();
 
         // add the customers to the model;
-        theModel.addAttribute("customerList", theCustomers);
+        customerModel.addAttribute("customerList", theCustomers);
 
         return "list-customers";
+    }
+
+    @GetMapping("/showFormForAdd")
+    public String showFormForAddCustomer(Model customerModel) {
+        log.info("rendering the customer-form page");
+
+        Customer theCustomer = new Customer();
+        customerModel.addAttribute("customer", theCustomer);
+
+        return "customer-form";
+    }
+
+    @PostMapping("/save")
+    public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
+        log.info("saving a customer");
+
+        return "redirect:/customer/list";
     }
 }

@@ -2,6 +2,9 @@ package com.simpleapp.havefun.data.entity;
 
 import javax.persistence.*;
 
+/**
+ * Entity class for the table Customer.
+ */
 @Entity
 @Table(name = "customer")
 public class Customer {

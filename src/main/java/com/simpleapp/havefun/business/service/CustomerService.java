@@ -1,24 +1,28 @@
 package com.simpleapp.havefun.business.service;
 
-import com.simpleapp.havefun.data.dao.CustomerDAO;
 import com.simpleapp.havefun.data.entity.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author Stephane, Nganou Wafo
+ *
+ * This class provide methods enforcing certain requirements for Customers.
+ */
+
 @Service
-public class CustomerService {
+public interface CustomerService {
 
-    private final CustomerDAO customerDAO;
+    /**
+     * Retrieve Data from the Database via CustomerDTO.
+     * @return a List of Customers
+     */
+    List<Customer> getCustomerList();
 
-    @Autowired
-    public CustomerService(CustomerDAO customerDAO) {
-        this.customerDAO = customerDAO;
-    }
-
-    public List<Customer> getCustomerList() {
-
-        return customerDAO.findAll();
-    }
+    /**
+     * saves a Customer object into the Database.
+     * @param theCustomer
+     */
+    void saveCustomer(Customer theCustomer);
 }
