@@ -3,6 +3,7 @@ package com.simpleapp.havefun.business.service;
 import com.simpleapp.havefun.data.dao.CustomerDAO;
 import com.simpleapp.havefun.data.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public List<Customer> getCustomerList() {
 
-        return customerDAO.findAll();
+        return customerDAO.findAll(Sort.by("firstName"));
     }
 
     /**
