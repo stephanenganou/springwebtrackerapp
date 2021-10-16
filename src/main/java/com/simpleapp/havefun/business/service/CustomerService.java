@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author Stephane, Nganou Wafo
- *
+ * <p>
  * This class provide methods enforcing certain requirements for Customers.
  */
 
@@ -16,6 +16,7 @@ public interface CustomerService {
 
     /**
      * Retrieve Data from the Database via CustomerDTO.
+     *
      * @return a List of Customers
      */
     List<Customer> getCustomerList();

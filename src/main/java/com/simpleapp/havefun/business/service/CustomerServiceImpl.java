@@ -40,11 +40,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public void saveCustomer(Customer theCustomer) {
-
-        //Customer existingCustomer = getCustomerById(theCustomer.getId());
-        //if(null != existingCustomer){
-            //customerDAO.sa
-        //}
         customerDAO.save(theCustomer);
     }
 
@@ -54,14 +49,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public Customer getCustomerById(int customerId) {
-
         return customerDAO.getById(customerId);
     }
 
+    /**
+     * @see CustomerService#deleteCustomer(int) 
+     */
     @Override
     @Transactional
     public void deleteCustomer(int customerId) {
-
         customerDAO.deleteById(customerId);
     }
 }

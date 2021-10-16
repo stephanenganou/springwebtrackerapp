@@ -66,7 +66,7 @@ public class CustomerController {
     }
 
     @GetMapping("/delete/{customerId}")
-    public String deleteCustomer(@PathVariable(value = "customerId") int theCustomerId){
+    public String deleteCustomer(@PathVariable(value = "customerId") int theCustomerId) {
         log.info("deleting the customer with id: {}", theCustomerId);
 
         customerService.deleteCustomer(theCustomerId);
