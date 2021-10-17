@@ -2,7 +2,6 @@ package com.simpleapp.havefun.web.controller;
 
 import com.simpleapp.havefun.business.service.CustomerService;
 import com.simpleapp.havefun.data.entity.Customer;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
