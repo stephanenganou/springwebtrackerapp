@@ -1,7 +1,8 @@
 version: '3'
 
 services:
-  mysql: #Service 1: Database
+  #Service 1: Database
+  mysql:
     image: 'mysql:latest'
     command: --default-authentication-plugin=mysql_native_password
     restart: on-failure
@@ -14,3 +15,22 @@ services:
       - MYSQL_DATABASE=training
       - MYSQL_USER=appstest
       - MYSQL_PASSWORD=training
+
+  #Service 2: Spring MVC App
+  webtrackerapp:
+    image: webtrackerapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webtrackerapp
+    volumes:
+      - ./terminal-adapter-dummy-files:/secrets
+    environment:
+      - MYSQL_ROOT_PASSWORD=training
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/web_customer_tracker?useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=training
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mysql
