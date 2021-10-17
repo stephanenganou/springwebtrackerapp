@@ -63,7 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     /**
-     * @see CustomerService#deleteCustomer(int) 
+     * @see CustomerService#deleteCustomer(int)
      */
     @Override
     @Transactional

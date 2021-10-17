@@ -76,9 +76,9 @@ public class CustomerController {
 
     @GetMapping("/search")
     public String searchCustomer(@RequestParam("theSearchName") String theSearchName,
-                                 Model customerModel){
+                                 Model customerModel) {
 
-        log.info("searching for customer with lastName: {}", theSearchName );
+        log.info("searching for customer with lastName: {}", theSearchName);
 
         // search customers from the service
         List<Customer> theCustomers = customerService.searchCustomers(theSearchName);
