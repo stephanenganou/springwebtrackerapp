@@ -2,12 +2,17 @@ package com.simpleapp.havefun.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+/**
+ * @author Stephane Nganou Wafo
+ * Sets up all the Aspect logs methods.
+ */
 @Configuration
 @Aspect
 @EnableAspectJAutoProxy
@@ -35,8 +40,30 @@ public class AspectJConfig {
     public void before(JoinPoint theJoinPoint) {
         // display calling method
         String theMethod = theJoinPoint.getSignature().toShortString();
-        log.info("========>> in @Before: calling method: {}", theMethod);
+        log.info("========>> In @Before: calling method: {}", theMethod);
 
         // display the arguments to the method
+        displayArgumentsFromBeforeAdvice(theJoinPoint.getArgs());
+    }
+
+    // add @AfterReturning advice
+    @AfterReturning(
+            pointcut = "forAppFlow()",
+            returning = "theResult"
+    )
+    public void afterReturning(JoinPoint theJoinPoint, Object theResult) {
+        // display method we are returning from
+        String theMethod = theJoinPoint.getSignature().toShortString();
+        log.info("=====>>> In @AfterReturning: from method: {}", theMethod);
+
+        // display data returned
+        log.info("=====>>> Result: {}", theResult);
+    }
+
+    private void displayArgumentsFromBeforeAdvice(Object[] args) {
+        if (args != null) {
+            for (Object arg : args)
+                log.info("=====>> argument: {}", arg);
+        }
     }
 }
