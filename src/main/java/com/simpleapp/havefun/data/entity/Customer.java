@@ -3,6 +3,7 @@ package com.simpleapp.havefun.data.entity;
 import javax.persistence.*;
 
 /**
+ * @author Stephane, Nganou Wafo
  * Entity class for the table Customer.
  */
 @Entity

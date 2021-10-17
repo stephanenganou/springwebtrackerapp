@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * @author Stephane, Nganou Wafo
- * <p>
  * This class provide methods enforcing certain requirements for Customers.
  */
 
