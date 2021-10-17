@@ -1,4 +1,4 @@
-package com.simpleapp.havefun.web;
+package com.simpleapp.havefun.web.controller;
 
 import com.simpleapp.havefun.business.service.CustomerService;
 import com.simpleapp.havefun.data.entity.Customer;
