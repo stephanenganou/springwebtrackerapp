@@ -22,6 +22,11 @@ public interface CustomerService {
     List<Customer> getCustomerList();
 
     /**
+     * Search customers based upon their lastNames
+     */
+    List<Customer> searchCustomers(String searchName);
+
+    /**
      * saves a Customer object into the Database.
      */
     void saveCustomer(Customer theCustomer);

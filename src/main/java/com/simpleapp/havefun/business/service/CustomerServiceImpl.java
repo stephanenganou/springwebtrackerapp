@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * @author Stephane Nganou Wafo
@@ -32,6 +34,14 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> getCustomerList() {
 
         return customerDAO.findAll(Sort.by("lastName"));
+    }
+
+    @Override
+    @Transactional
+    public List<Customer> searchCustomers(String searchName) {
+        return StreamSupport
+                .stream(customerDAO.findAllByLastNameOrderByLastName(searchName).spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     /**
