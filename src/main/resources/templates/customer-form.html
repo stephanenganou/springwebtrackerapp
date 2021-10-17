@@ -26,7 +26,7 @@
 
         <form action="#" id="addCustomerForm" th:action="@{/customer/save}"
               th:object="${customer}" th:method="POST">
-
+            <input type="hidden" th:field="*{id}" />
             <table>
                 <tbody>
                     <tr>

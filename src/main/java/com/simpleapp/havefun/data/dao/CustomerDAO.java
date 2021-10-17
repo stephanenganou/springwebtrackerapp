@@ -6,10 +6,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * @author Stephane, Nganou Wafo
+ *
+ * Repository for the entity Customer.
+ */
 @Repository
 public interface CustomerDAO extends JpaRepository<Customer, Integer> {
 
     Optional<Customer> findCustomerByEmail(String email);
 
     Optional<Customer> findCustomerByFirstNameAndAndLastName(String firstName, String lastName);
+
+    Iterable<Customer> findAllByLastNameOrderByLastName(String lastName);
 }
