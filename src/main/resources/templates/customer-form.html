@@ -6,13 +6,14 @@
     <title>Save Customer</title>
     <link type="text/css"
           rel="stylesheet"
-          href="/css/style.css"
-    >
+          href="/css/style.css">
 
     <link type="text/css"
           rel="stylesheet"
-          href="/css/add-customer-style.css"
-    >
+          href="/css/add-customer-style.css">
+    <style>
+        .error {color:red}
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -36,10 +37,12 @@
                     <tr>
                         <td><label>Last Name:</label></td>
                         <td><input type="text" name="lastName" id="lastName" th:field="*{lastName}"/></td>
+                        <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" />
                     </tr>
                     <tr>
                         <td><label>Email:</label></td>
                         <td><input type="email" name="email" id="email" th:field="*{email}"/></td>
+                        <td><p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" /></td>
                     </tr>
                     <tr>
                         <td><label></label></td>

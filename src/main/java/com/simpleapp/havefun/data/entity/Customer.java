@@ -1,5 +1,7 @@
 package com.simpleapp.havefun.data.entity;
 
+import com.simpleapp.havefun.data.dto.CustomerDTO;
+
 import javax.persistence.*;
 
 /**
@@ -25,7 +27,17 @@ public class Customer {
     private String email;
 
     public Customer() {
+    }
 
+    public Customer(int id, String firstName, String lastName, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public CustomerDTO convertIntoDto() {
+        return new CustomerDTO(id, firstName, lastName, email);
     }
 
     public int getId() {

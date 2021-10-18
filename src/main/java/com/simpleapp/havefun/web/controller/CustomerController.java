@@ -1,12 +1,15 @@
 package com.simpleapp.havefun.web.controller;
 
 import com.simpleapp.havefun.business.service.CustomerService;
+import com.simpleapp.havefun.data.dto.CustomerDTO;
 import com.simpleapp.havefun.data.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -28,7 +31,7 @@ public class CustomerController {
     public String listCustomers(Model customerModel) {
 
         // get customers from DAO
-        List<Customer> theCustomers = customerService.getCustomerList();
+        List<CustomerDTO> theCustomers = customerService.getCustomerList();
 
         // add the customers to the model;
         customerModel.addAttribute("customerList", theCustomers);
@@ -50,7 +53,7 @@ public class CustomerController {
                                             Model theCustomerModel) {
 
         // Get the customer from the database
-        Customer foundCustomer = customerService.getCustomerById(theCustomerId);
+        CustomerDTO foundCustomer = customerService.getCustomerById(theCustomerId);
 
         // set customer as a model attribute to pre-populate the form
         theCustomerModel.addAttribute("customer", foundCustomer);
@@ -72,7 +75,7 @@ public class CustomerController {
                                  Model customerModel) {
 
         // search customers from the service
-        List<Customer> theCustomers = customerService.searchCustomers(theSearchName);
+        List<CustomerDTO> theCustomers = customerService.searchCustomers(theSearchName);
 
         // add the customers to the model
         customerModel.addAttribute("customerList", theCustomers);
@@ -81,9 +84,14 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
+    public String saveCustomer(@Valid @ModelAttribute("customer") CustomerDTO theCustomer,
+                               BindingResult bindingResult) {
 
-        customerService.saveCustomer(theCustomer);
-        return "redirect:/customer/list";
+        if (bindingResult.hasErrors()) {
+            return "/customer-form";
+        } else {
+            customerService.saveCustomer(theCustomer);
+            return "redirect:/customer/list";
+        }
     }
 }

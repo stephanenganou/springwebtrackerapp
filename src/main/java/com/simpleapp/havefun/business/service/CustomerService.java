@@ -1,6 +1,6 @@
 package com.simpleapp.havefun.business.service;
 
-import com.simpleapp.havefun.data.entity.Customer;
+import com.simpleapp.havefun.data.dto.CustomerDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,22 +18,22 @@ public interface CustomerService {
      *
      * @return a List of Customers
      */
-    List<Customer> getCustomerList();
+    List<CustomerDTO> getCustomerList();
 
     /**
      * Search customers based upon their lastNames
      */
-    List<Customer> searchCustomers(String searchName);
+    List<CustomerDTO> searchCustomers(String searchName);
 
     /**
      * saves a Customer object into the Database.
      */
-    void saveCustomer(Customer theCustomer);
+    void saveCustomer(CustomerDTO theCustomer);
 
     /**
      * search and retrieve a customer by his Id.
      */
-    Customer getCustomerById(int customerId);
+    CustomerDTO getCustomerById(int customerId);
 
     /**
      * method used to delete a specific customer using his Id.

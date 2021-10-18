@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/showMyLoginPage")
                 .loginProcessingUrl("/authenticateTheUser")
                 .failureUrl("/showMyLoginPage?error=true")
+                .defaultSuccessUrl("/customer/list")
                 .permitAll();
     }
 }

@@ -1,6 +1,7 @@
 package com.simpleapp.havefun.business.service;
 
 import com.simpleapp.havefun.data.dao.CustomerDAO;
+import com.simpleapp.havefun.data.dto.CustomerDTO;
 import com.simpleapp.havefun.data.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -30,26 +31,32 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     @Transactional
-    public List<Customer> getCustomerList() {
+    public List<CustomerDTO> getCustomerList() {
 
-        return customerDAO.findAll(Sort.by("lastName"));
+        return customerDAO.findAll(Sort.by("lastName"))
+                .stream().map(Customer::convertIntoDto)
+                .collect(Collectors.toList());
+
     }
 
     @Override
     @Transactional
-    public List<Customer> searchCustomers(String searchName) {
+    public List<CustomerDTO> searchCustomers(String searchName) {
         return StreamSupport
                 .stream(customerDAO.findAllByLastNameOrderByLastName(searchName).spliterator(), false)
+                .map(Customer::convertIntoDto)
                 .collect(Collectors.toList());
     }
 
     /**
-     * @see CustomerService#saveCustomer(Customer)
+     * @see CustomerService#saveCustomer(CustomerDTO)
      */
     @Override
     @Transactional
-    public void saveCustomer(Customer theCustomer) {
-        customerDAO.save(theCustomer);
+    public void saveCustomer(CustomerDTO theCustomerDTO) {
+        if (theCustomerDTO != null) {
+            customerDAO.save(theCustomerDTO.convertIntoCustomer());
+        }
     }
 
     /**
@@ -57,8 +64,11 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     @Transactional
-    public Customer getCustomerById(int customerId) {
-        return customerDAO.getById(customerId);
+    public CustomerDTO getCustomerById(int customerId) {
+        Customer foundCustomer = customerDAO.getById(customerId);
+
+        return (foundCustomer != null) ? foundCustomer.convertIntoDto() : null;
+
     }
 
     /**
